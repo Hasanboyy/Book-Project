@@ -45,7 +45,7 @@ public class CustomerService {
         update.setSurname(customerDto.getSurname());
         update.setPassword(customerDto.getPassword());
         update.setContact(customerDto.getContact());
-        update.setEmail(customerDto.getEmail());
+        /*update.setEmail(customerDto.getEmail());*/
         update.setUpdatedAt(LocalDateTime.now());
         update.setStatus(true);
         update.setCity(true);
@@ -120,7 +120,7 @@ public class CustomerService {
         entity.setSurname(dto.getSurname());
         entity.setPassword(dto.getPassword());
         entity.setContact(dto.getContact());
-        entity.setEmail(dto.getEmail());
+        /*entity.setEmail(dto.getEmail());*/
         entity.setCity(true);
         entity.setStatus(true);
         entity.setCreatedAt(LocalDateTime.now());
@@ -132,6 +132,6 @@ public class CustomerService {
         dto.setSurname(entity.getSurname());
         dto.setPassword(entity.getPassword());
         dto.setContact(entity.getContact());
-        dto.setEmail(entity.getEmail());
+        /*dto.setEmail(entity.getEmail());*/
     }
 }
