@@ -16,13 +16,13 @@ public class Order {
     private Integer quality;
 
     @ManyToOne
-    @JoinColumn(name = ("book_id"))
+    @JoinColumn(name = ("book_id"),insertable = false,updatable = false)
     private Book book;
     @Column(name = ("book_id"))
     private Integer book_id;
 
     @ManyToOne
-    @JoinColumn(name = ("customer_id"))
+    @JoinColumn(name = ("customer_id"),insertable = false,updatable = false)
     private Customer customer;
     @Column(name = ("customer_id"))
     private Integer customer_id;
