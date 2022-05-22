@@ -28,7 +28,7 @@ public class Customer {
 
     private Boolean status;
 
-    private String email;
+    /*private String email;*/
 
     @Column(name = ("created_at"))
     private LocalDateTime createdAt;
