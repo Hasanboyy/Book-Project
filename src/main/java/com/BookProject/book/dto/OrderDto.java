@@ -9,6 +9,7 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderDto {
     private Integer id;
+    private Integer quality;
     private BookDto bookDto;
     private Integer bookId;
     private CustomerDto customerDto;
