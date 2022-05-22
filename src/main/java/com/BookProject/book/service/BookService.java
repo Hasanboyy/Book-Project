@@ -16,29 +16,30 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
+import javax.persistence.criteria.Predicate;
 
 @Service
 @AllArgsConstructor
 public class BookService {
     private BookRepository bookRepository;
 
-    public boolean create(BookDto bookDto){
-        Book book=new Book();
+    public boolean create(BookDto bookDto) {
+        Book book = new Book();
         bookDto.setId(book.getId());
         convertDtoToEntity(bookDto, book);
         bookRepository.save(book);
         return true;
     }
 
-    public BookDto get(Integer id){
-        Book book=getEntity(id);
-        BookDto bookDto=new BookDto();
-        convertEntityToDto(bookDto,book);
+    public BookDto get(Integer id) {
+        Book book = getEntity(id);
+        BookDto bookDto = new BookDto();
+        convertEntityToDto(bookDto, book);
         return bookDto;
     }
-    public boolean update(Integer id, BookDto bookDto){
-        Book old=getEntity(id);
+
+    public boolean update(Integer id, BookDto bookDto) {
+        Book old = getEntity(id);
         old.setAuthor(bookDto.getAuthor());
         old.setTitle(bookDto.getTitle());
         old.setBookImage(bookDto.getBookImage());
@@ -48,56 +49,58 @@ public class BookService {
         bookRepository.save(old);
         return true;
     }
-    public boolean delete(Integer id){
-        Book book=getEntity(id);
+
+    public boolean delete(Integer id) {
+        Book book = getEntity(id);
         book.setDeletedAt(LocalDateTime.now());
         bookRepository.save(book);
         return true;
     }
 
-    public List<BookDto>findAllByPage(Integer page, Integer size){
-        Pageable pageable= (Pageable) PageRequest.of(page,size);
-        Page<Book> resultPage=bookRepository.findAll((org.springframework.data.domain.Pageable) pageable);
-        List<BookDto>response=new ArrayList<>();
-        for (Book book:resultPage) {
-            if (book.getDeletedAt()==null){
-                BookDto bookDto=new BookDto();
-                convertEntityToDto(bookDto,book);
+    public List<BookDto> findAllByPage(Integer page, Integer size) {
+        Pageable pageable = (Pageable) PageRequest.of(page, size);
+        Page<Book> resultPage = bookRepository.findAll((org.springframework.data.domain.Pageable) pageable);
+        List<BookDto> response = new ArrayList<>();
+        for (Book book : resultPage) {
+            if (book.getDeletedAt() == null) {
+                BookDto bookDto = new BookDto();
+                convertEntityToDto(bookDto, book);
                 response.add(bookDto);
             }
         }
         return response;
     }
-    public List<BookDto> filter(BookFilter bookFilter){
+
+    public List<BookDto> filter(BookFilter bookFilter) {
         String sortBy = bookFilter.getSortBy();
-        if (sortBy==null || sortBy.isEmpty()){
-            sortBy="createdAt";
+        if (sortBy == null || sortBy.isEmpty()) {
+            sortBy = "createdAt";
         }
 
-        List<Predicate> predicateList=new ArrayList<>();
-        Specification<Book> specification =(((root, query, criteriaBuilder) -> {
-            if (bookFilter.getAuthor() != null){
-                predicateList.add((Predicate) criteriaBuilder.like(root.get("author"), ("%"+ bookFilter.getAuthor()+"%")));
+        List<Predicate> predicateList = new ArrayList<>();
+        Specification<Book> specification = (((root, query, criteriaBuilder) -> {
+            if (bookFilter.getAuthor() != null) {
+                predicateList.add(criteriaBuilder.like(root.get("author"), ("%" + bookFilter.getAuthor() + "%")));
             }
-            if (bookFilter.getTitle() != null){
-                predicateList.add((Predicate) criteriaBuilder.like(root.get("title"), ("%"+ bookFilter.getTitle()+"%")));
+            if (bookFilter.getTitle() != null) {
+                predicateList.add(criteriaBuilder.like(root.get("title"), ("%" + bookFilter.getTitle() + "%")));
             }
-            if (bookFilter.getPrice() != null){
-                predicateList.add((Predicate) criteriaBuilder.like(root.get("price"), ("%"+ bookFilter.getPrice()+"%")));
+            if (bookFilter.getPrice() != null) {
+                predicateList.add(criteriaBuilder.like(root.get("price"), ("%" + bookFilter.getPrice() + "%")));
             }
-            if (bookFilter.getBookImage() != null){
-                predicateList.add((Predicate) criteriaBuilder.like(root.get("book image"), ("%"+ bookFilter.getBookImage()+"%")));
+            if (bookFilter.getBookImage() != null) {
+                predicateList.add(criteriaBuilder.like(root.get("book image"), ("%" + bookFilter.getBookImage() + "%")));
             }
             return criteriaBuilder.and(predicateList.toArray(new javax.persistence.criteria.Predicate[0]));
 
         }));
 
-        Pageable pageable = (Pageable) PageRequest.of(bookFilter.getPage(),bookFilter.getSize(),bookFilter.getDirection(),sortBy);
-        List<BookDto> resultList=new ArrayList<>();
-        Page<Book>bookPage=bookRepository.findAll(specification, (org.springframework.data.domain.Pageable) pageable);
-        for (Book book: bookPage){
-            if (book.getDeletedAt()==null){
-                BookDto bookDto=new BookDto();
+        Pageable pageable = (Pageable) PageRequest.of(bookFilter.getPage(), bookFilter.getSize(), bookFilter.getDirection(), sortBy);
+        List<BookDto> resultList = new ArrayList<>();
+        Page<Book> bookPage = bookRepository.findAll(specification, (org.springframework.data.domain.Pageable) pageable);
+        for (Book book : bookPage) {
+            if (book.getDeletedAt() == null) {
+                BookDto bookDto = new BookDto();
                 convertEntityToDto(bookDto, book);
                 resultList.add(bookDto);
             }
@@ -105,15 +108,15 @@ public class BookService {
         return resultList;
     }
 
-    public Book getEntity(Integer id){
-        Optional<Book>optional=bookRepository.findByIdAndDeletedAtIsNull(id);
-        if (optional.isEmpty()){
-            throw  new BookException("Book not found");
+    public Book getEntity(Integer id) {
+        Optional<Book> optional = bookRepository.findByIdAndDeletedAtIsNull(id);
+        if (optional.isEmpty()) {
+            throw new BookException("Book not found");
         }
         return optional.get();
     }
 
-    public void convertDtoToEntity(BookDto bookDto, Book entity){
+    public void convertDtoToEntity(BookDto bookDto, Book entity) {
         entity.setAuthor(bookDto.getAuthor());
         entity.setTitle(bookDto.getTitle());
         entity.setPrice(bookDto.getPrice());
@@ -122,7 +125,7 @@ public class BookService {
         entity.setCreatedAt(LocalDateTime.now());
     }
 
-    public void convertEntityToDto(BookDto bookDto, Book book){
+    public void convertEntityToDto(BookDto bookDto, Book book) {
         bookDto.setId(book.getId());
         bookDto.setAuthor(book.getAuthor());
         bookDto.setBookImage(book.getBookImage());
