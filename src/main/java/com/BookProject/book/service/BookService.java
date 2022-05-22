@@ -51,7 +51,7 @@ public class BookService {
     public boolean delete(Integer id){
         Book book=getEntity(id);
         book.setDeletedAt(LocalDateTime.now());
-        bookRepository.delete(book);
+        bookRepository.save(book);
         return true;
     }
 

@@ -40,9 +40,10 @@ public class OrderService {
     public OrderDto get(Integer id) {
         Order order = getEntiy(id);
         OrderDto orderDto = new OrderDto();
-        convertEntitiyToDto(order,orderDto);
+        convertEntityToDto(order,orderDto);
         return orderDto;
     }
+
     public boolean update(OrderDto dto, Integer id) {
         Order update = getEntiy(id);
         customerService.getEntity(update.getCustomerId());
@@ -63,21 +64,21 @@ public class OrderService {
         return true;
     }
 
-    public List<OrderDto> fillAllByPage(Integer page, Integer size) {
+    public List<OrderDto> findAllByPage(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page,size);
         Page<Order> resultPage = orderRepository.findAll(pageable);
         List<OrderDto> response = new ArrayList<>();
         for (Order order : resultPage) {
             if (order.getDeletedAt() == null){
                 OrderDto dto = new OrderDto();
-                convertEntitiyToDto(order, dto);
+                convertEntityToDto(order, dto);
                 response.add(dto);
             }
         }
         return response;
     }
 
-    private void convertEntitiyToDto(Order order, OrderDto dto) {
+    private void convertEntityToDto(Order order, OrderDto dto) {
         dto.setId(order.getId());
         dto.setQuality(order.getQuality());
     }
