@@ -77,19 +77,31 @@ public class CustomerService {
         }
 
         List<Predicate> predicateList = new ArrayList<>();
-        Specification<Customer> specifications = ((root, query, criteriaBuilder) -> {
+        Specification<Customer> specifications = (((root, query, criteriaBuilder) -> {
             if (dto.getName() != null){
                 predicateList.add(criteriaBuilder.like(root.get("name"), ("%" + dto.getName() + "%")));
             }
             if (dto.getSurname() != null){
                 predicateList.add(criteriaBuilder.like(root.get("surname"), ("%" + dto.getSurname() + "%")));
             }
-            return null;
-        });
-        return null;
+            if (dto.getDirection() != null){
+                predicateList.add(criteriaBuilder.equal(root.get("direction"), dto.getDirec()));
+            }
+            return criteriaBuilder.and(predicateList.toArray(new javax.persistence.criteria.Predicate[0]));
+        }));
+
+        Pageable pageable = PageRequest.of(dto.getPage(), dto.getSize(), dto.getDirection(), sortBy);
+        List<CustomerDto> resultList = new ArrayList<>();
+        Page<Customer> customerPage = customerRepository.findAll(specifications, pageable);
+        for (Customer customer : customerPage) {
+            if (customer.getDeletedAt() == null){
+                CustomerDto customerDto = new CustomerDto();
+                convertEntityToDto(customerDto, customer);
+                resultList.add(customerDto);
+            }
+        }
+        return resultList;
     }
-
-
 
     private Customer getEntity(Integer id) {
         Optional<Customer> optional = customerRepository.findByIdAndDeletedAtIsNull(id);
