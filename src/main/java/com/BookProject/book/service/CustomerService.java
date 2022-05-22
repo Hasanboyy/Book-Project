@@ -5,17 +5,20 @@ import com.BookProject.book.exeption.BookException;
 import com.BookProject.book.filter.CustomerFilter;
 import com.BookProject.book.model.Customer;
 import com.BookProject.book.repository.CustomerRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.Predicate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+@Service
+@AllArgsConstructor
 public class CustomerService {
 
     private CustomerRepository customerRepository;

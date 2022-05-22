@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.Email;
+
 
 @Getter
 @Setter
@@ -21,6 +23,9 @@ public class CustomerDto {
 
     private Boolean city;
 
+    @Email(message = "enter the email correctly")
     private Integer email;
+
+    private Boolean status;
 
 }
