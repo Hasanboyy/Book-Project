@@ -27,7 +27,7 @@ public class CustomerDto {
     @Size(min = 12, max = 13)
     private String contact;
 
-    @Email(message = "enter the email correctly")
+   /* @Email(message = "enter the email correctly")*/
     private String email;
 
     private Boolean city;
