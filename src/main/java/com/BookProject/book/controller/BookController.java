@@ -2,6 +2,7 @@ package com.BookProject.book.controller;
 
 import com.BookProject.book.dto.BookDto;
 import com.BookProject.book.filter.BookFilter;
+import com.BookProject.book.model.Book;
 import com.BookProject.book.service.BookService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class BookController {
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody @Valid BookDto bookDto) {
-        boolean result = bookService.create(bookDto);
+        Book result = bookService.create(bookDto);
         return ResponseEntity.ok(result);
 
     }

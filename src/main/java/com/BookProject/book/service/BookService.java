@@ -23,12 +23,12 @@ import javax.persistence.criteria.Predicate;
 public class BookService {
     private BookRepository bookRepository;
 
-    public boolean create(BookDto bookDto) {
+    public Book create(BookDto bookDto) {
         Book book = new Book();
         bookDto.setId(book.getId());
         convertDtoToEntity(bookDto, book);
         bookRepository.save(book);
-        return true;
+        return book;
     }
 
     public BookDto get(Integer id) {
