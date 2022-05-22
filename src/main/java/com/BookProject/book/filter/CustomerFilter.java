@@ -1,4 +1,14 @@
 package com.BookProject.book.filter;
 
-public class CustomerFilter {
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class CustomerFilter extends FilterDto{
+    private String name;
+    private String surname;
+    private String password;
+    private String contact;
+    private String email;
 }
