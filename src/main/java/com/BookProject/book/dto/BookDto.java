@@ -21,7 +21,7 @@ public class BookDto {
     @NotBlank(message = "Invalid title")
     @Size(min = 8,max = 255)
     private String title;
-    @NotBlank(message = "Invalid price")
+
     private BigDecimal price;
     @NotBlank(message = "Invalid book image")
     @Size(min = 8,max = 255)
