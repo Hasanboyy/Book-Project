@@ -45,7 +45,7 @@ public class OrderController {
     @GetMapping("/pagenation")
     public ResponseEntity<?> pagenation(@RequestParam("s") Integer size,
                                         @RequestParam("p") Integer page){
-        List<OrderDto> result = orderService.fillAllByPage(page,size);
+        List<OrderDto> result = orderService.findAllByPage(page,size);
         return ResponseEntity.ok(result);
     }
 }
