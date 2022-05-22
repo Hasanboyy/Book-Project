@@ -1,6 +1,7 @@
 package com.BookProject.book.model;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 import javax.persistence.*;

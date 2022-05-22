@@ -2,6 +2,7 @@ package com.BookProject.book.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
