@@ -22,7 +22,6 @@ public class BookController {
     public ResponseEntity<?> create(@RequestBody @Valid BookDto bookDto) {
         Book result = bookService.create(bookDto);
         return ResponseEntity.ok(result);
-
     }
 
     @GetMapping("/get/{id}")
