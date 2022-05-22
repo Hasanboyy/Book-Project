@@ -1,7 +1,7 @@
 package com.BookProject.book.service;
 
 import com.BookProject.book.dto.CustomerDto;
-import com.BookProject.book.exeption.BookExeption;
+import com.BookProject.book.exeption.BookException;
 import com.BookProject.book.filter.CustomerFilter;
 import com.BookProject.book.model.Customer;
 import com.BookProject.book.repository.CustomerRepository;
@@ -106,7 +106,7 @@ public class CustomerService {
     public Customer getEntity(Integer id) {
         Optional<Customer> optional = customerRepository.findByIdAndDeletedAtIsNull(id);
         if (optional.isEmpty()){
-            throw new BookExeption("Customer not found");
+            throw new BookException("Customer not found");
         }
         return optional.get();
     }
