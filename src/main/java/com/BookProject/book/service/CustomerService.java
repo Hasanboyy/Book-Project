@@ -8,7 +8,9 @@ import com.BookProject.book.repository.CustomerRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
+import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -70,6 +72,17 @@ public class CustomerService {
         if (sortBy == null || sortBy.isEmpty()){
             sortBy = "createdAt";
         }
+
+        List<Predicate> predicateList = new ArrayList<>();
+        Specification<Customer> specifications = ((root, query, criteriaBuilder) -> {
+            if (dto.getName() != null){
+                predicateList.add(criteriaBuilder.like(root.get("name"), ("%" + dto.getName() + "%")));
+            }
+            if (dto.getSurname() != null){
+                predicateList.add(criteriaBuilder.like(root.get("surname"), ("%" + dto.getSurname() + "%")));
+            }
+            if ()
+        })
         return null;
     }
 
