@@ -15,6 +15,7 @@ public class Order {
     @Id
     private Integer id;
     private Integer quality;
+    private Boolean status;
 
     @ManyToOne
     @JoinColumn(name = ("book_id"),insertable = false,updatable = false)
