@@ -16,10 +16,8 @@ import java.time.LocalDateTime;
 public class BookDto {
     private Integer id;
     @NotBlank(message = "Invalid author")
-    @Size(min = 5, max = 255)
     private String author;
     @NotBlank(message = "Invalid title")
-    @Size(min = 5,max = 255)
     private String title;
     private BigDecimal price;
     @NotBlank(message = "Invalid book image")
