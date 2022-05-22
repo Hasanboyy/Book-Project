@@ -81,8 +81,8 @@ public class CustomerService {
             if (dto.getSurname() != null){
                 predicateList.add(criteriaBuilder.like(root.get("surname"), ("%" + dto.getSurname() + "%")));
             }
-            if ()
-        })
+            return null;
+        });
         return null;
     }
 
