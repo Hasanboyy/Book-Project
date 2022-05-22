@@ -1,4 +1,4 @@
 package com.BookProject.book.filter;
 
-public class CustomerFilter {
+public class CustomerFilter extends FilterDto{
 }
