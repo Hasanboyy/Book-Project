@@ -28,7 +28,7 @@ public class CustomerDto {
     private String contact;
 
     @Email(message = "enter the email correctly")
-    private Integer email;
+    private String email;
 
     private Boolean city;
     private Boolean status;
