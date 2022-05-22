@@ -55,6 +55,7 @@ public class CustomerService {
 
     public boolean delete(Integer id) {
         Customer customer = getEntity(id);
+        customer.setDeletedAt(LocalDateTime.now());
         customerRepository.save(customer);
         return true;
     }
