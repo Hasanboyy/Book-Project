@@ -21,7 +21,6 @@ public class BookDto {
     private String title;
     private BigDecimal price;
     @NotBlank(message = "Invalid book image")
-    @Size(min = 8,max = 255)
     private String bookImage;
     private Boolean status;
 
