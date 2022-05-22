@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,19 +18,19 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody Order order) {
+    public ResponseEntity<?> create(@RequestBody @Valid OrderDto order) {
         boolean result = orderService.create(order);
         return ResponseEntity.ok(result);
     }
 
     @GetMapping("/get/{id}")
     public ResponseEntity<?> get(@PathVariable("id") Integer id) {
-        Order result = orderService.get(id);
-        return null;
+        OrderDto result = orderService.get(id);
+        return ResponseEntity.ok(result);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@RequestBody Order order,
+    public ResponseEntity<?> update(@RequestBody @Valid OrderDto order,
                                     @PathVariable("id") Integer id) {
         boolean result = orderService.update(order, id);
         return ResponseEntity.ok(result);

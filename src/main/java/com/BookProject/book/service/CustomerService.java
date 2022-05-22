@@ -103,7 +103,7 @@ public class CustomerService {
         return resultList;
     }
 
-    private Customer getEntity(Integer id) {
+    public Customer getEntity(Integer id) {
         Optional<Customer> optional = customerRepository.findByIdAndDeletedAtIsNull(id);
         if (optional.isEmpty()){
             throw new BookExeption("Customer not found");
