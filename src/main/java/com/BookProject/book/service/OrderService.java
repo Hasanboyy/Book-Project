@@ -63,7 +63,7 @@ public class OrderService {
         return true;
     }
 
-    public List<OrderDto> fillAllByPage(Integer page, Integer size) {
+    public List<OrderDto> findAllByPage(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page,size);
         Page<Order> resultPage = orderRepository.findAll(pageable);
         List<OrderDto> response = new ArrayList<>();
