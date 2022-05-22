@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.Predicate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -42,6 +43,8 @@ public class CustomerService {
         update.setPassword(customerDto.getPassword());
         update.setContact(customerDto.getContact());
         update.setEmail(customerDto.getEmail());
+        update.setUpdatedAt(LocalDateTime.now());
+        update.setStatus(true);
         update.setCity(true);
         customerRepository.save(update);
         return true;
@@ -88,7 +91,7 @@ public class CustomerService {
 
 
 
-    private Customer getEntity(Integer id) {
+    public Customer getEntity(Integer id) {
         Optional<Customer> optional = customerRepository.findByIdAndDeletedAtIsNull(id);
         if (optional.isEmpty()){
             throw new BookException("Customer not found");
@@ -103,6 +106,8 @@ public class CustomerService {
         entity.setContact(dto.getContact());
         entity.setEmail(dto.getEmail());
         entity.setCity(true);
+        entity.setStatus(true);
+        entity.setCreatedAt(LocalDateTime.now());
     }
 
     private void convertEntityToDto(CustomerDto dto, Customer entity) {

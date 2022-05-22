@@ -26,6 +26,8 @@ public class Customer {
 
     private Boolean city;
 
+    private Boolean status;
+
     private Integer email;
 
     @Column(name = ("created_at"))
