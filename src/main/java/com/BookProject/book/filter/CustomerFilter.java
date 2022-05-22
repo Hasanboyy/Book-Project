@@ -8,7 +8,5 @@ import lombok.Setter;
 public class CustomerFilter extends FilterDto{
     private String name;
     private String surname;
-    private String password;
-    private String contact;
-    private String email;
+
 }
