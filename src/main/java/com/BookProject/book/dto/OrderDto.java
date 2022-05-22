@@ -10,7 +10,7 @@ import lombok.Setter;
 public class OrderDto {
     private Integer id;
     private BookDto bookDto;
-    private Integer book_id;
+    private Integer bookId;
     private CustomerDto customerDto;
-    private Integer customer_id;
+    private Integer customerId;
 }

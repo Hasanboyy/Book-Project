@@ -6,7 +6,6 @@ import com.BookProject.book.repository.OrderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,10 +22,11 @@ public class OrderService {
     public boolean create(OrderDto dto) {
         Order order = new Order();
         //TODO:Book checked
-        customerService.get(dto.getCustomer_id());
-        order.setCustomer_id(dto.getCustomer_id());
+        customerService.get(dto.getCustomerId());
+        order.setCustomerId(dto.getCustomerId());
         order.setCreatedAt(LocalDateTime.now());
         order.setStatus(true);
+        orderRepository.save(order);
         return true;
     }
 
@@ -41,12 +41,20 @@ public class OrderService {
 
     public boolean update(OrderDto dto, Integer id) {
         Order update = getEntiy(id);
-        customerService.get
-        return false;
+        customerService.getEntity(id);
+        update.setCustomerId(dto.getCustomerId());
+        update.setUpdatedAt(LocalDateTime.now());
+        orderRepository.save(update);
+        //TODO: updated Book;
+
+        return true;
     }
 
     public boolean delete(Integer id) {
-        return false;
+        Order order = getEntiy(id);
+        order.setDeletedAt(LocalDateTime.now());
+        orderRepository.save(order);
+        return true;
     }
 
     public List<OrderDto> fillAllByPage(Integer page, Integer size) {
