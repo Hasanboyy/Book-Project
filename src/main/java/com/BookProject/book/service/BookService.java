@@ -25,7 +25,7 @@ public class BookService {
 
     public Book create(BookDto bookDto) {
         Book book = new Book();
-        bookDto.setId(book.getId());
+        book.setId(bookDto.getId());
         convertDtoToEntity(bookDto, book);
         bookRepository.save(book);
         return book;

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
@@ -22,6 +21,4 @@ public class BookDto {
     @NotBlank(message = "Invalid book image")
     private String bookImage;
     private Boolean status;
-
-
 }
