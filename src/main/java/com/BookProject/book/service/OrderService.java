@@ -27,10 +27,11 @@ public class OrderService {
 
     public boolean create(OrderDto dto) {
         Order order = new Order();
-        bookService.getEntity(dto.getBookId());
+        //bookService.getEntity(dto.getBookId());
+        //order.setBookId(dto.getBookId());
         customerService.get(dto.getCustomerId());
-        order.setBookId(dto.getBookId());
         order.setCustomerId(dto.getCustomerId());
+        order.setQuality(dto.getQuality());
         order.setCreatedAt(LocalDateTime.now());
         order.setStatus(true);
         orderRepository.save(order);
@@ -48,11 +49,10 @@ public class OrderService {
         Order update = getEntiy(id);
         customerService.getEntity(update.getCustomerId());
         update.setCustomerId(dto.getCustomerId());
-        bookService.getEntity(dto.getBookId());
-        update.setBookId(dto.getBookId());
+        //bookService.getEntity(dto.getBookId());
+        //update.setBookId(dto.getBookId());
         update.setUpdatedAt(LocalDateTime.now());
         orderRepository.save(update);
-        //TODO: updated Book;
 
         return true;
     }
@@ -71,7 +71,8 @@ public class OrderService {
         for (Order order : resultPage) {
             if (order.getDeletedAt() == null){
                 OrderDto dto = new OrderDto();
-                convertEntityToDto(order, dto);
+                dto.setId(order.getId());
+                dto.setQuality(order.getQuality());
                 response.add(dto);
             }
         }
@@ -80,6 +81,7 @@ public class OrderService {
 
     private void convertEntityToDto(Order order, OrderDto dto) {
         dto.setId(order.getId());
+        dto.setCustomerDto(customerService.get(order.getCustomerId()));
         dto.setQuality(order.getQuality());
     }
 

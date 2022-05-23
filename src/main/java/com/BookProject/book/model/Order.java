@@ -17,11 +17,11 @@ public class Order {
     private Integer quality;
     private Boolean status;
 
-    @ManyToOne
+  /*  @ManyToOne
     @JoinColumn(name = ("book_id"),insertable = false,updatable = false)
     private Book book;
     @Column(name = ("book_id"))
-    private Integer bookId;
+    private Integer bookId;*/
 
     @ManyToOne
     @JoinColumn(name = ("customer_id"),insertable = false,updatable = false)
