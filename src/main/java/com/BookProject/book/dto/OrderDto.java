@@ -15,6 +15,7 @@ public class OrderDto {
     @NotNull
     private Integer quality;
     private BookDto bookDto;
+    @NotNull
     private Integer bookId;
     private CustomerDto customerDto;
     @NotNull
