@@ -49,8 +49,8 @@ public class OrderService {
         Order update = getEntiy(id);
         customerService.getEntity(update.getCustomerId());
         update.setCustomerId(dto.getCustomerId());
-        //bookService.getEntity(dto.getBookId());
-        //update.setBookId(dto.getBookId());
+        bookService.getEntity(dto.getBookId());
+        update.setBookId(dto.getBookId());
         update.setUpdatedAt(LocalDateTime.now());
         orderRepository.save(update);
 
