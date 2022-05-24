@@ -14,8 +14,8 @@ public class OrderDto {
     private Integer id;
     @NotNull
     private Integer quality;
-    //private BookDto bookDto;
-    //private Integer bookId;
+    private BookDto bookDto;
+    private Integer bookId;
     private CustomerDto customerDto;
     @NotNull
     private Integer customerId;
