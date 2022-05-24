@@ -30,7 +30,6 @@ public class Order {
     @Column(name = ("customer_id"))
     private Integer customerId;
 
-
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
