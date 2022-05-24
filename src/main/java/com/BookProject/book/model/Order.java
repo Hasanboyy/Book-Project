@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Table(name = ("orders"))
 public class Order {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer quality;
     private Boolean status;
