@@ -28,8 +28,8 @@ public class OrderService {
     public boolean create(OrderDto dto) {
         Order order = new Order();
         bookService.getEntity(dto.getBookId());
-        order.setBookId(dto.getBookId());
         customerService.get(dto.getCustomerId());
+        order.setBookId(dto.getBookId());
         order.setCustomerId(dto.getCustomerId());
         order.setQuality(dto.getQuality());
         order.setCreatedAt(LocalDateTime.now());
